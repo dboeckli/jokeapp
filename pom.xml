@@ -17,6 +17,10 @@
     <name>jokeapp</name>
     <description>Demo project for Spring Boot</description>
 
+    <organization>
+        <name>dboeckli</name>
+    </organization>
+
     <properties>
         <java.version>21</java.version>
 
