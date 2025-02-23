@@ -19,7 +19,42 @@
 
     <properties>
         <java.version>11</java.version>
+
+        <github.acions.build>false</github.acions.build>
+        <skip.docker.publish>true</skip.docker.publish>
+        <skip.start.stop.springboot>false</skip.start.stop.springboot>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <!--
+            you need a personal access token for the dboeckli organization: generate access token on github: https://github.com/settings/apps
+            add gitHub server configuration to settings.xml file with username and password (add token there)
+            Configure maven settings of IntelliJ to use your personal settings.xml
+            -->
+            <id>github</id>
+            <url>https://maven.pkg.github.com/${project.organization.name}/${project.artifactId}</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub dboeckli Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/${project.organization.name}/${project.artifactId}</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
