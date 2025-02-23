@@ -190,7 +190,6 @@
                 </executions>
             </plugin>
 
-            <!-- TODO: ADD ME AGAIN
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -203,14 +202,12 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            -->
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments>
-                    <!-- TODO: ENABLE ME AGAIN
                     <layers>
                         <enabled>true</enabled>
                         <includeLayerTools>true</includeLayerTools>
@@ -221,7 +218,6 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    -->
                 </configuration>
 
                 <executions>
@@ -261,8 +257,80 @@
                         </configuration>
                     </execution>
 
-                    <!-- TODO: NEEDS UPGRADE TO JDK21 -->
-                    <!-- TODO DOCKER -->
+                    <execution>
+                        <id>build-docker-image</id>
+                        <goals>
+                            <goal>build-image-no-fork</goal>
+                        </goals>
+                        <phase>install</phase>
+                        <configuration>
+                            <image>
+                                <name>local/${project.artifactId}:latest</name>
+                                <tags>
+                                    local/${project.artifactId}:${project.version}
+                                </tags>
+                                <publish>false</publish>
+                            </image>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>publish-docker-image-to-github</id>
+                        <goals>
+                            <goal>build-image-no-fork</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                        <configuration>
+                            <skip>${skip.docker.publish}</skip>
+                            <image>
+                                <name>ghcr.io/${project.organization.name}/${project.artifactId}:latest</name>
+                                <tags>
+                                    ghcr.io/${project.organization.name}/${project.artifactId}:${project.version}
+                                </tags>
+                                <publish>true</publish>
+                            </image>
+                            <docker>
+                                <publishRegistry>
+                                    <!-- GITHUB_ACTOR and GITHUB_TOKEN are set by gitHub Actions -->
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <username>${env.GITHUB_ACTOR}</username>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <password>${env.GITHUB_TOKEN}</password>
+                                    <url>https://ghcr.io</url><!-- gitHub packages -->
+                                </publishRegistry>
+                            </docker>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>publish-docker-image-to-docker-hub</id>
+                        <goals>
+                            <goal>build-image-no-fork</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                        <configuration>
+                            <skip>${skip.docker.publish}</skip>
+                            <image>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <name>${env.DOCKER_USER}/${project.artifactId}:latest</name>
+                                <tags>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    ${env.DOCKER_USER}/${project.artifactId}:${project.version}
+                                </tags>
+                                <publish>true</publish>
+                            </image>
+                            <docker>
+                                <publishRegistry>
+                                    <!-- DOCKER_USER and DOCKER_TOKEN are set by gitHub Actions -->
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <username>${env.DOCKER_USER}</username>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <password>${env.DOCKER_TOKEN}</password>
+                                    <url>https://index.docker.io/v1/</url>
+                                </publishRegistry>
+                            </docker>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
