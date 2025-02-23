@@ -150,6 +150,7 @@
                 </executions>
             </plugin>
 
+            <!-- TODO: ADD ME AGAIN
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -162,12 +163,14 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            -->
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments>
+                    <!-- TODO: ENABLE ME AGAIN
                     <layers>
                         <enabled>true</enabled>
                         <includeLayerTools>true</includeLayerTools>
@@ -178,6 +181,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    -->
                 </configuration>
 
                 <executions>
