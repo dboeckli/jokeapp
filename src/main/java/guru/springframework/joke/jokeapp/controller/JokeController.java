@@ -4,7 +4,7 @@ import guru.springframework.joke.jokeapp.service.JokeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,7 +16,7 @@ public class JokeController {
 
     public static final String ATTRIBUTE_NAME = "joke";
 
-    @RequestMapping({"/", ""})
+    @GetMapping({"/", ""})
     public String showJoke(Model model) {
         model.addAttribute(ATTRIBUTE_NAME, jokeService.getJoke());
         return CHUCK_NORRIS_JOKE_VIEW;
