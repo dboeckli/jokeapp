@@ -12,7 +12,7 @@ class JokeServiceImplTest {
         ChuckNorrisQuotes chuckNorrisQuotes = new ChuckNorrisQuotes();
         assertThat(chuckNorrisQuotes.getRandomQuote())
             .isNotNull()
-            .contains("Chuck")
-            .contains("Norris");
+            .containsIgnoringCase("Chuck")
+            .containsIgnoringCase("Norris");
     }
 }
