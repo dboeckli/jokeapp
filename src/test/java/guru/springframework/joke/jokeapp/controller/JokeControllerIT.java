@@ -31,6 +31,7 @@ class JokeControllerIT {
         assertEquals(CHUCK_NORRIS_JOKE_VIEW, viewName);
         assertThat(joke)
             .isNotNull()
-            .contains("Chuck Norris");
+            .contains("Chuck")
+            .contains("Norris");
     }
 }

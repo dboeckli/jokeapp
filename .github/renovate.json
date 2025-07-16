@@ -30,7 +30,9 @@
     },
     "helm-values": {
         "managerFilePatterns": [
-            "/(^|/)values\\.ya?ml$/"
+            "/helm-charts/values\\.ya?ml$/",
+            "/helm-charts/.+/values\\.ya?ml$/",
+            "/helm-charts/charts/.+/values\\.ya?ml$/"
         ]
     },
     "helmv3": {

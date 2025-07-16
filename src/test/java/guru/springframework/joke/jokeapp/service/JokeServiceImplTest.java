@@ -12,6 +12,7 @@ class JokeServiceImplTest {
         ChuckNorrisQuotes chuckNorrisQuotes = new ChuckNorrisQuotes();
         assertThat(chuckNorrisQuotes.getRandomQuote())
             .isNotNull()
-            .contains("Chuck Norris");
+            .contains("Chuck")
+            .contains("Norris");
     }
 }

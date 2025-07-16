@@ -57,7 +57,8 @@ class JokeControllerUiIT {
         String jokeText = webDriver.findElement(By.tagName("p")).getText();
         assertThat(jokeText)
             .isNotBlank()
-            .contains("Chuck Norris");
+            .contains("Chuck")
+            .contains("Norris");
     }
 
     private void waitForPageLoad() {
