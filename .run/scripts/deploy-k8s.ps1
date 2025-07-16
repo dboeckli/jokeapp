@@ -4,4 +4,4 @@ $file = Get-ChildItem -Filter jokeapp-v*.tgz | Select-Object -First 1
 tar -xvf $file.Name
 
 $APPLICATION_NAME = Get-ChildItem -Directory | Where-Object { $_.LastWriteTime -ge $file.LastWriteTime } | Select-Object -ExpandProperty Name
-helm upgrade --install $APPLICATION_NAME ./$APPLICATION_NAME --namespace jokeapp --create-namespace --wait --timeout 8m --debug --render-subchart-notes
+helm upgrade --install $APPLICATION_NAME ./$APPLICATION_NAME -f "./$APPLICATION_NAME/dependencies-values.yaml" --namespace jokeapp --create-namespace --wait --timeout 8m --debug --render-subchart-notes
