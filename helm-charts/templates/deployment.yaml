@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "@docker.repo@/@project.artifactId@:{{ .Chart.AppVersion }}"
           imagePullPolicy: IfNotPresent
           env:
             - name: JAVA_TIMEZONE

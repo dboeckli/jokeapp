@@ -6,15 +6,16 @@ global:
 
 replicaCount: 1
 
-image:
-  repository: @docker.repo@/@project.artifactId@
-  tag: @project.version@
-
 service:
   type: NodePort
   port: 8080
   targetPort: 8080
   nodePort: 30080
+
+busyboxImage:
+  repository: busybox
+  tag: "1.37.0"
+  pullPolicy: IfNotPresent
 
 resources:
   limits:
