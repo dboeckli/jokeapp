@@ -38,4 +38,5 @@ class JokeControllerTest {
         assertEquals(CHUCK_NORRIS_JOKE_VIEW, viewName);
         verify(model).addAttribute(ATTRIBUTE_NAME, "this is a moked joke");
     }
+
 }

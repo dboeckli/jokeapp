@@ -12,23 +12,18 @@ class JokeServiceImplTest {
     void testJoke() {
         ChuckNorrisQuotes chuckNorrisQuotes = new ChuckNorrisQuotes();
         String joke = chuckNorrisQuotes.getRandomQuote();
-        assertThat(joke)
-            .isNotNull()
-            .satisfiesAnyOf(
-                j -> assertThat(j).containsIgnoringCase("Chuck").containsIgnoringCase("Norris"),
-                j -> assertThat(j).containsIgnoringCase("Superman")
-            );
+        assertThat(joke).isNotNull()
+            .satisfiesAnyOf(j -> assertThat(j).containsIgnoringCase("Chuck").containsIgnoringCase("Norris"),
+                    j -> assertThat(j).containsIgnoringCase("Superman"));
     }
 
     @RepeatedTest(200)
     void testJokeRepeated() {
         ChuckNorrisQuotes chuckNorrisQuotes = new ChuckNorrisQuotes();
         String joke = chuckNorrisQuotes.getRandomQuote();
-        assertThat(joke)
-            .isNotNull()
-            .satisfiesAnyOf(
-                j -> assertThat(j).containsIgnoringCase("Chuck").containsIgnoringCase("Norris"),
-                j -> assertThat(j).containsIgnoringCase("Superman")
-            );
+        assertThat(joke).isNotNull()
+            .satisfiesAnyOf(j -> assertThat(j).containsIgnoringCase("Chuck").containsIgnoringCase("Norris"),
+                    j -> assertThat(j).containsIgnoringCase("Superman"));
     }
+
 }

@@ -16,9 +16,10 @@ public class JokeController {
 
     public static final String ATTRIBUTE_NAME = "joke";
 
-    @GetMapping({"/", ""})
+    @GetMapping({ "/", "" })
     public String showJoke(Model model) {
         model.addAttribute(ATTRIBUTE_NAME, jokeService.getJoke());
         return CHUCK_NORRIS_JOKE_VIEW;
     }
+
 }
