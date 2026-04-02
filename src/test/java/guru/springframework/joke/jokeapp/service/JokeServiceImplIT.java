@@ -17,9 +17,9 @@ class JokeServiceImplIT {
 
     @Test
     void testJoke() {
-        assertThat(chuckNorrisQuotes.getRandomQuote())
-            .isNotNull()
+        assertThat(chuckNorrisQuotes.getRandomQuote()).isNotNull()
             .containsIgnoringCase("Chuck")
             .containsIgnoringCase("Norris");
     }
+
 }

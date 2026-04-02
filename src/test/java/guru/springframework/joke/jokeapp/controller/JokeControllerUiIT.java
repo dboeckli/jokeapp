@@ -31,7 +31,7 @@ class JokeControllerUiIT {
     @BeforeEach
     void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");  // Run in headless mode
+        options.addArguments("--headless"); // Run in headless mode
         webDriver = new ChromeDriver(options);
     }
 
@@ -55,15 +55,13 @@ class JokeControllerUiIT {
 
         // Check that a joke is present
         String jokeText = webDriver.findElement(By.tagName("p")).getText();
-        assertThat(jokeText)
-            .isNotBlank()
-            .containsIgnoringCase("Chuck")
-            .containsIgnoringCase("Norris");
+        assertThat(jokeText).isNotBlank().containsIgnoringCase("Chuck").containsIgnoringCase("Norris");
     }
 
     private void waitForPageLoad() {
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(30));
-        wait.until((ExpectedCondition<Boolean>) wd ->
-            Objects.equals(((JavascriptExecutor) wd).executeScript("return document.readyState"), "complete"));
+        wait.until((ExpectedCondition<Boolean>) wd -> Objects
+            .equals(((JavascriptExecutor) wd).executeScript("return document.readyState"), "complete"));
     }
+
 }

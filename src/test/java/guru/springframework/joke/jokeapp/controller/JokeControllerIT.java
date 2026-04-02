@@ -25,13 +25,11 @@ class JokeControllerIT {
         Model model = new ExtendedModelMap();
 
         String viewName = controller.showJoke(model);
-        String joke = (String)model.getAttribute(ATTRIBUTE_NAME);
+        String joke = (String) model.getAttribute(ATTRIBUTE_NAME);
 
         // Then
         assertEquals(CHUCK_NORRIS_JOKE_VIEW, viewName);
-        assertThat(joke)
-            .isNotNull()
-            .containsIgnoringCase("Chuck")
-            .containsIgnoringCase("Norris");
+        assertThat(joke).isNotNull().containsIgnoringCase("Chuck").containsIgnoringCase("Norris");
     }
+
 }
