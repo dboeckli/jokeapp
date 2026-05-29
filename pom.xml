@@ -43,7 +43,7 @@
         <chuck-norris-for-actuator.version>2.4.0</chuck-norris-for-actuator.version>
 
         <!-- Sonar -->
-        <sonar-maven-plugin.version>5.6.0.6792</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.7.0.6970</sonar-maven-plugin.version>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.language>java</sonar.language>
