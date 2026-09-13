@@ -118,7 +118,7 @@ cd target/helm/repo
 unpack
 
 ```powershell
-$file = Get-ChildItem -Filter jokeapp-v*.tgz | Select-Object -First 1
+$file = Get-ChildItem -Filter jokeapp-chart-*.tgz | Select-Object -First 1
 tar -xvf $file.Name
 ```
 
