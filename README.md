@@ -4,27 +4,61 @@
 
 Jokeapp is a Spring Boot application that generates and displays random Chuck Norris jokes. The application uses the `ChuckNorrisQuotes` library to generate jokes and presents them through a simple web interface.
 
+## Architecture Overview
+
+```mermaid
+graph LR
+    Client(["💻 Browser"])
+
+    subgraph App ["jokeapp (Spring Boot 4, :8080)"]
+        Controller["JokeController\nGET /"]
+        Service["JokeService\nJokeServiceImpl"]
+        Quotes["ChuckNorrisQuotes"]
+        Actuator["Actuator\n/actuator/**"]
+    end
+
+    Client -->|"GET /"| Controller
+    Client -->|"health / metrics"| Actuator
+    Controller -->|"getJoke()"| Service
+    Service -->|"getRandomQuote()"| Quotes
+    Quotes -->|"random quote"| Service
+    Service -->|"joke"| Controller
+    Controller -->|"Thymeleaf HTML"| Client
+```
+
 ## Features
 
-- Generation of random Chuck Norris jokes
-- Display of jokes via a web interface
-- Spring Boot Actuator for application monitoring
+- Generation of random Chuck Norris jokes via the `ChuckNorrisQuotes` library
+- Display of jokes via a Thymeleaf web interface
+- Spring Boot Actuator with liveness/readiness probes and build/git/java info
+- Micrometer metrics (Prometheus registry) and optional OpenTelemetry tracing
+- Structured JSON logging via Logstash Logback Encoder
 
 ## Technologies
 
-- Java 21
-- Spring Boot 3.5.3
+- Java 25
+- Spring Boot 4.1.1
 - Thymeleaf for template rendering
-- Maven for dependency management and build process
+- Spring Boot Actuator, Micrometer (Prometheus), OpenTelemetry
+- Lombok and Logstash Logback Encoder
+- Maven Wrapper for dependency management and build process
 - Docker for containerization
 - Helm for Kubernetes deployment
 
 ## Prerequisites
 
 - Java Development Kit (JDK) 25
-- Maven 3.x
+- Maven Wrapper is bundled (`./mvnw`); no local Maven installation required
 - Docker (optional for container builds)
 - Kubernetes cluster (optional for Helm deployment)
+
+## Build & run
+
+- Full build (format checks, unit + integration tests, Helm lint/template): `./mvnw clean verify`
+- Unit tests only: `./mvnw test`
+- Start locally: `./mvnw spring-boot:run`
+
+See [`AGENTS.md`](./AGENTS.md) for formatting, test conventions and deployment details.
 
 ## Sandbox (local dev environment)
 
@@ -90,14 +124,19 @@ Apply the kit to an existing sandbox (restarts the sandbox, VM state is kept):
 sbx kit add <sandbox-name> "git+https://github.com/dboeckli/opencode-sandbox-kit.git#dir=opencode-agent"
 ```
 
-> **Sandbox quirk:** Before any `./mvnw` in the sandbox run `export npm_config_bin_links=false`
-> (Spotless/prettier otherwise fails with EPERM on the mounted workspace).
+> **Sandbox quirk:** the kit sets `npm_config_bin_links=false` globally, so `./mvnw` works out of
+> the box (Spotless/prettier would otherwise fail with EPERM on the mounted workspace).
 
 ## Webapp
 
-`http://localhost:8080` or `http://localhost:30080`
+- Web UI: `http://localhost:8080` (local) or `http://localhost:30080` (Kubernetes NodePort)
+- Actuator: `http://localhost:8080/actuator` (health, info, metrics, prometheus)
 
 ## Deployment
+
+Deployment is Helm-only. The CI workflows (`.github/workflows/`) build the image, package the
+chart and deploy it; locally the IntelliJ run configurations `deploy-k8s`, `test-k8s`,
+`uninstall-k8s` and `clear docker` (`.run/scripts/`) wrap the steps below.
 
 ### Deployment with Helm
 
@@ -106,7 +145,7 @@ Be aware that we are using a different namespace here (not default).
 To run maven filtering for destination target/helm
 
 ```bash
-mvn clean install -DskipTests 
+./mvnw clean install -DskipTests
 ```
 
 Go to the directory where the tgz file has been created after 'mvn install'
