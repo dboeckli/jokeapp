@@ -55,7 +55,9 @@ class JokeControllerUiIT {
 
         // Check that a joke is present
         String jokeText = webDriver.findElement(By.tagName("p")).getText();
-        assertThat(jokeText).isNotBlank().containsIgnoringCase("Chuck").containsIgnoringCase("Norris");
+        assertThat(jokeText).isNotBlank()
+            .satisfiesAnyOf(j -> assertThat(j).containsIgnoringCase("Chuck").containsIgnoringCase("Norris"),
+                    j -> assertThat(j).containsIgnoringCase("Superman"));
     }
 
     private void waitForPageLoad() {

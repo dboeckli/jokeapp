@@ -10,17 +10,17 @@ class JokeServiceImplTest {
 
     @Test
     void testJoke() {
-        ChuckNorrisQuotes chuckNorrisQuotes = new ChuckNorrisQuotes();
-        String joke = chuckNorrisQuotes.getRandomQuote();
-        assertThat(joke).isNotNull()
-            .satisfiesAnyOf(j -> assertThat(j).containsIgnoringCase("Chuck").containsIgnoringCase("Norris"),
-                    j -> assertThat(j).containsIgnoringCase("Superman"));
+        JokeService jokeService = new JokeServiceImpl(new ChuckNorrisQuotes());
+        assertValidJoke(jokeService.getJoke());
     }
 
     @RepeatedTest(200)
     void testJokeRepeated() {
-        ChuckNorrisQuotes chuckNorrisQuotes = new ChuckNorrisQuotes();
-        String joke = chuckNorrisQuotes.getRandomQuote();
+        String joke = new ChuckNorrisQuotes().getRandomQuote();
+        assertValidJoke(joke);
+    }
+
+    private void assertValidJoke(String joke) {
         assertThat(joke).isNotNull()
             .satisfiesAnyOf(j -> assertThat(j).containsIgnoringCase("Chuck").containsIgnoringCase("Norris"),
                     j -> assertThat(j).containsIgnoringCase("Superman"));

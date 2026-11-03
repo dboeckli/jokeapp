@@ -29,7 +29,9 @@ class JokeControllerIT {
 
         // Then
         assertEquals(CHUCK_NORRIS_JOKE_VIEW, viewName);
-        assertThat(joke).isNotNull().containsIgnoringCase("Chuck").containsIgnoringCase("Norris");
+        assertThat(joke).isNotNull()
+            .satisfiesAnyOf(j -> assertThat(j).containsIgnoringCase("Chuck").containsIgnoringCase("Norris"),
+                    j -> assertThat(j).containsIgnoringCase("Superman"));
     }
 
 }
