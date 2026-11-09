@@ -1,0 +1,25 @@
+{
+  "id": 26834421,
+  "name": "master-1",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "dboeckli/jokeapp",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/master"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    }
+  ],
+  "bypass_actors": []
+}
